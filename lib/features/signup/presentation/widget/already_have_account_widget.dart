@@ -3,28 +3,26 @@ import 'package:chatapp/core/utils/extenstion.dart';
 import 'package:chatapp/core/widget/custom_text.dart';
 import 'package:flutter/material.dart';
 
-class DonthaveAccoutWidget extends StatelessWidget {
-  const DonthaveAccoutWidget({
-    super.key,
-  });
+class AlreadyHaveAccountWidget extends StatelessWidget {
+  const AlreadyHaveAccountWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.PushNamd(Routes.signupscreen);
+        context.pushReplacementNamed(Routes.loginscreen);
       },
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CustomText(
-            text: "DONT HAVE ACCOUNT?  ",
+            text: "Already Have Account ",
             fontsize: 16,
             fontcolor: Colors.black,
             fontWeight: FontWeight.w300,
           ),
           CustomText(
-            text: "SIGN UP",
+            text: "LOGIN",
             fontsize: 17,
             fontcolor: Colors.blue,
             fontWeight: FontWeight.bold,

@@ -21,11 +21,9 @@ class LoginCubit extends Cubit<LoginState> {
     final response = await loginUsecases.login(loginEntities);
     response.fold(
       (l) {
-        print('fail-------------- ${_mapFailutrToMessage(l)}');
         emit(FailureLoginState(errorMessage: _mapFailutrToMessage(l)));
       },
       (r) {
-        print("sucess ------ $r");
         emit(SucessLoginState());
       },
     );
@@ -34,7 +32,6 @@ class LoginCubit extends Cubit<LoginState> {
   bool isobescurepassword = true;
   isobsecure() {
     isobescurepassword = !isobescurepassword;
-    print("------ $isobescurepassword");
     emit(paswwordstate(isobescure: isobescurepassword));
   }
 

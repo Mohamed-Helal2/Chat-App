@@ -10,7 +10,7 @@ class LoginButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Button(
-      text: "Signin",
+      text: "Login",
       onPressed0: () {
         if (context.read<LoginCubit>().loginformkey.currentState!.validate()) {
           context.read<LoginCubit>().login();

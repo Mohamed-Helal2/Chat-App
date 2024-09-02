@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class OrLoginWithWidget extends StatelessWidget {
   final String text;
 
-  const OrLoginWithWidget({Key? key, this.text = "or login with"}) : super(key: key);
+  const OrLoginWithWidget({super.key,required this.text});
 
   @override
   Widget build(BuildContext context) {

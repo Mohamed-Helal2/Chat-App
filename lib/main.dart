@@ -1,20 +1,20 @@
 import 'package:chatapp/core/di/dipendency_injection.dart';
-import 'package:chatapp/features/login/presentation/bloc/login_cubit.dart';
-import 'package:chatapp/features/login/presentation/pages/login_screen.dart';
+import 'package:chatapp/core/routes/app_router.dart';
+import 'package:chatapp/core/routes/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await SetGetIt();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+    MyApp({super.key});
+  final AppRouter approuter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +23,8 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: BlocProvider(
-          create: (context) => getit<LoginCubit>(),
-          child: const LoginScreen(),
-        ),
+        onGenerateRoute: approuter.generateRoute,
+        initialRoute: Routes.loginscreen,
       ),
     );
   }

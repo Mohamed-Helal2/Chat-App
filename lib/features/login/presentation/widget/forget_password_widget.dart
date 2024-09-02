@@ -1,4 +1,4 @@
- import 'package:chatapp/core/widget/custom_text.dart';
+import 'package:chatapp/core/widget/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class ForgetPasswordWidget extends StatelessWidget {

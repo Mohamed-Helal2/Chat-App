@@ -45,7 +45,7 @@ class customTextFormField extends StatelessWidget {
           fillColor: fillColor ?? Colors.transparent,
           isDense: true,
           contentPadding: contentPadding ??
-              EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
+              EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
 // Focus
           focusedBorder: focusedBorder ??
               OutlineInputBorder(
@@ -65,7 +65,8 @@ class customTextFormField extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               borderSide: const BorderSide(color: Colors.red, width: 1.3)),
           hintText: hintText,
-          hintStyle: hintStyle ?? TextStyle(fontSize: 16.sp),
+          hintStyle:
+              hintStyle ?? TextStyle(fontSize: 14.sp, color: Colors.grey),
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon),
       obscureText: isobscureText ?? false,

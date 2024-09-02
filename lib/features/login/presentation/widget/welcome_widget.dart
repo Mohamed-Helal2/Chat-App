@@ -17,6 +17,7 @@ class WelcomeWidget extends StatelessWidget {
           padding: EdgeInsets.only(left: 12),
           child: CustomText(
             text: "Welcome",
+
             fontsize: 40,
             fontcolor: Colors.white,
             // align: TextAlign.left,

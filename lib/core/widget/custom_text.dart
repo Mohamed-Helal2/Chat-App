@@ -14,7 +14,7 @@ class CustomText extends StatelessWidget {
     required this.fontsize,
     required this.fontcolor,
     required this.fontWeight,
-    this.maxlines,
+      this.maxlines,
     this.fontfamily,
   });
 
@@ -27,7 +27,7 @@ class CustomText extends StatelessWidget {
             fontSize: fontsize.sp,
             color: fontcolor,
             fontWeight: fontWeight,
-            overflow: TextOverflow.ellipsis,
+            // overflow: TextOverflow.ellipsis,
             fontFamily: fontfamily ?? "PTSerif"));
   }
 }

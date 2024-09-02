@@ -1,11 +1,13 @@
 import 'package:chatapp/features/login/presentation/widget/forget_password_widget.dart';
+import 'package:chatapp/features/login/presentation/widget/listner_widget.dart';
+import 'package:chatapp/features/login/presentation/widget/loading_builder_widget.dart';
 import 'package:chatapp/features/login/presentation/widget/login_button_widget.dart';
 import 'package:chatapp/features/login/presentation/widget/login_with_google_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widget/donthave_accout_widget.dart';
 import '../widget/email_and_password_widget.dart';
-import '../widget/or_login_with_widget.dart';
+import '../../../../core/widget/Auth/or_login_with_widget.dart';
 import '/features/login/presentation/widget/welcome_widget.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -38,11 +40,14 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     const EmailAndPasswordWidget(),
                     const ForgetPasswordWidget(),
+                    const LoadingBuilderWidget(),
                     const LoginButtonWidget(),
                     SizedBox(
                       height: 15.h,
                     ),
-                    const OrLoginWithWidget(),
+                    const OrLoginWithWidget(
+                      text: 'or login with',
+                    ),
                     SizedBox(
                       height: 10.h,
                     ),
@@ -50,7 +55,8 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(
                       height: 30.h,
                     ),
-                    const DonthaveAccoutWidget()
+                    const DonthaveAccoutWidget(),
+                    const ListnerWidget()
                   ],
                 ),
               ),
