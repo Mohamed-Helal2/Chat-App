@@ -13,13 +13,7 @@ class ListnerWidget extends StatelessWidget {
     return BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is SucessLoginState) {
-            context.PushNamd(Routes.homescreen);
-            // SnackbarMessage().showSnackBar(
-            //   context: context,
-            //   message: "Sucess logged in",
-            //   icon: Icons.error,
-            //   color: const Color.fromARGB(255, 90, 2, 13),
-            // );
+            context.PushNamd(Routes.bottomNavBAr);
           } else if (state is FailureLoginState) {
             SnackbarMessage().showSnackBar(
               context: context,

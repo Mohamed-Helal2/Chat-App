@@ -1,5 +1,7 @@
 import 'package:chatapp/core/di/dipendency_injection.dart';
 import 'package:chatapp/core/routes/routes.dart';
+import 'package:chatapp/features/bottomNavBar/presentation/bloc/bottom_nav_bar_cubit.dart';
+import 'package:chatapp/features/bottomNavBar/presentation/ui/bottm_nav_bar.dart';
 import 'package:chatapp/features/home/presentation/home_screen.dart';
 import 'package:chatapp/features/login/presentation/bloc/login_cubit.dart';
 import 'package:chatapp/features/login/presentation/pages/login_screen.dart';
@@ -25,7 +27,14 @@ class AppRouter {
                 ));
       case Routes.homescreen:
         return MaterialPageRoute(
-          builder: (context) => HomeScreen(),
+          builder: (context) => const HomeScreen(),
+        );
+      case Routes.bottomNavBAr:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getit<BottomNavBarCubit>(),
+            child: const BottmNavBar(),
+          ),
         );
       default:
         return null;

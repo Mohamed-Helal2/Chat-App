@@ -1,4 +1,5 @@
 import 'package:chatapp/core/error/network/network_info.dart';
+import 'package:chatapp/features/bottomNavBar/presentation/bloc/bottom_nav_bar_cubit.dart';
 import 'package:chatapp/features/login/data/datasource/login_remote_data_source.dart';
 import 'package:chatapp/features/login/data/repostoriesImpl/login_repostories_impl.dart';
 import 'package:chatapp/features/login/domain/repostories/login_repostories.dart';
@@ -18,6 +19,7 @@ Future<void> SetGetIt() async {
   // cubit
   getit.registerFactory<LoginCubit>(() => LoginCubit(loginUsecases: getit()));
   getit.registerFactory<SignupCubit>(() => SignupCubit(signupUsecase: getit()));
+  getit.registerFactory<BottomNavBarCubit>(() => BottomNavBarCubit());
 
 //  usecases
   getit.registerLazySingleton(() => LoginUsecases(loginrepostories: getit()));
