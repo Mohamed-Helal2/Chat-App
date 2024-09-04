@@ -3,3 +3,4 @@ class WrongdataExceeption implements Exception{}
 class NotValidEmailException implements Exception{}
 class NotValidPasswordException implements Exception{}
 class NotValidDataExcption implements Exception{}
+class EmptyUserException implements Exception{}

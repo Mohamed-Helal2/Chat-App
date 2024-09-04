@@ -25,3 +25,12 @@ class FirebaseFailure extends Failure {
   @override
   List<Object?> get props => [message];
 }
+
+
+class EmptyUserFailure extends Failure {
+ 
+  EmptyUserFailure();
+
+  @override
+  List<Object?> get props => [];
+}
