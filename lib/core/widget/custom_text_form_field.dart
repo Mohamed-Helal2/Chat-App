@@ -13,7 +13,7 @@ class customTextFormField extends StatelessWidget {
   final bool? isobscureText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
-
+  final Function(String)? onChanged;
   final Color? fillColor;
   final Function(String?)? validator;
   final TextEditingController? controller;
@@ -31,6 +31,7 @@ class customTextFormField extends StatelessWidget {
     this.validator,
     this.controller,
     this.prefixIcon,
+    this.onChanged,
   });
 
   @override
@@ -40,6 +41,10 @@ class customTextFormField extends StatelessWidget {
         return validator!(value);
       },
       controller: controller,
+      onChanged: onChanged,
+      onTapOutside: (event) {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       decoration: InputDecoration(
           filled: true,
           fillColor: fillColor ?? Colors.transparent,
