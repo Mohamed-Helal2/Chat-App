@@ -24,10 +24,7 @@ class BuildUserWidget extends StatelessWidget {
               child: ListView.separated(
                   itemBuilder: (context, index) {
                     return UserWidget(
-                      imageUrl: state.allusers[index].photourl,
-                      name: state.allusers[index].name,
-                      status: state.allusers[index].status,
-                      id: state.allusers[index].id,
+                      userEntites: state.allusers[index],
                     );
                   },
                   separatorBuilder: (context, index) {

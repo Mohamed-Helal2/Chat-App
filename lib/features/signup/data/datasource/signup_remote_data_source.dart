@@ -31,6 +31,7 @@ class SignupRemoteDataSourceImpl implements SignupRemoteDataSource {
       'name': signupmodel.name,
       'photoUrl': signupmodel.photourl,
       'uid': userCredential.user!.uid,
+      'status':signupmodel.status
     });
     return unit;
   }

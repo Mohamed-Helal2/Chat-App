@@ -23,7 +23,9 @@ class SignupRepostoriesimpl implements SignUpRepostories {
             password: signupentities.password,
             name: signupentities.name,
             userid: signupentities.userid,
-            photourl: signupentities.photourl);
+            photourl: signupentities.photourl,
+            status: signupentities.status
+            );
         await signupRemoteDataSource.signup(signupmodel);
         return right(unit);
       } on FirebaseAuthException catch (e) {

@@ -12,8 +12,12 @@ class Searchuserwidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return customTextFormField(
       controller: context.read<UsersCubit>().searchcontroller,
+      isobscureText: false,
       onChanged: (p0) {
         context.read<UsersCubit>().filteruser(value: p0);
+      },
+      onTapOutside: (event) {
+        FocusManager.instance.primaryFocus?.unfocus();
       },
       hintText: 'Search',
       contentPadding: const EdgeInsets.all(12),

@@ -43,7 +43,8 @@ class SignupCubit extends Cubit<SignupState> {
           email: emailcontroller.text,
           password: passwordcontroller.text,
           name: namecontroller.text,
-          photourl: photourl);
+          photourl: photourl,
+          status: null);
       final response = await signupUsecase.signup(
         signupentities: signupEntites,
       );

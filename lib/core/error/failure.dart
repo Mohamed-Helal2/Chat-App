@@ -34,3 +34,27 @@ class EmptyUserFailure extends Failure {
   @override
   List<Object?> get props => [];
 }
+
+class EmptyMessageFailure extends Failure {
+ 
+  EmptyMessageFailure();
+
+  @override
+  List<Object?> get props => [];
+}
+// location
+class LocationServiceFailure extends Failure {
+  @override
+  List<Object?> get props => [];
+}
+
+class LocationPermissionFailure extends Failure {
+  @override
+  List<Object?> get props => [];
+}
+
+// pdf failure 
+class getpdfFailure extends Failure {
+  @override
+  List<Object?> get props => [];
+}

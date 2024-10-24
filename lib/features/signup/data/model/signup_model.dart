@@ -6,7 +6,9 @@ class SignupModel extends SignupEntites {
       required super.password,
       required super.name,
       super.photourl,
-      required super.userid});
+      required super.userid,
+      super.status
+      });
 
   factory SignupModel.fromjson(Map<String, dynamic> json) {
     return SignupModel(
@@ -14,6 +16,8 @@ class SignupModel extends SignupEntites {
         password: json['password'],
         name: json['name'],
         photourl: json['photoUrl'] ,
-        userid: json['uid']);
+        userid: json['uid'],
+        status: json['status'],
+        );
   }
 }

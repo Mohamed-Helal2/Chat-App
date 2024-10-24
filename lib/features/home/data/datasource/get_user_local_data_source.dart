@@ -26,8 +26,10 @@ class GetUserLocalDataSourceImpl implements GetUserLocalDataSource {
 
   @override
   Future<List<UsersModel>> getcachedusers() async {
+    print("--------------- get cached");
     final jsonString = sharedPreferences.getString(cached_user);
     if (jsonString != null) {
+      print("--------------- get cached222");
       List decodeJsonData = json.decode(jsonString);
       List<UsersModel> Allusers = decodeJsonData
           .map<UsersModel>((e) => UsersModel.fromjson(e))
