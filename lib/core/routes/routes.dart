@@ -9,4 +9,6 @@ class Routes {
   static const String googlemapScreen = '/googlemapScreen';
   static const String pdfViewerScreen = '/PdfViewerScreen';
   static const String mychats = '/mychats';
+  static const String profilescreen = '/profilescreen';
+
 }

@@ -12,6 +12,8 @@ import 'package:chatapp/features/message/presentation/pages/message_screen.dart'
 import 'package:chatapp/features/message/presentation/pages/pdf_viewer_screen.dart';
 import 'package:chatapp/features/message/presentation/pages/show_images_screen.dart';
 import 'package:chatapp/features/mychats/presentation/pages/allmychats_screen.dart';
+import 'package:chatapp/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:chatapp/features/profile/presentation/pages/profie_screen.dart';
 import 'package:chatapp/features/signup/presentation/bloc/signup_cubit.dart';
 import 'package:chatapp/features/signup/presentation/pages/signup_screen.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +69,6 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (context) => BlocProvider.value(
                   value: getit<MessageCubit>(),
-                  // create: (context) => getit<MessageCubit>(),
                   child: ShowImageScreen(
                       imagepathes: imagespathes, userEntites: userEntites),
                 ));
@@ -86,6 +87,15 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => const AllmychatsScreen(),
         );
+// profile screen
+      case Routes.profilescreen:
+        final userid = settings.arguments as String;
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) =>
+                      getit<ProfileCubit>()..profiledata(userid: userid),
+                  child: const ProfieScreen(),
+                ));
       default:
         return null;
     }

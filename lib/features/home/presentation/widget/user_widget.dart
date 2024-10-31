@@ -41,8 +41,8 @@ class UserWidget extends StatelessWidget {
                     fontsize: 20,
                     fontcolor: Colors.black,
                     fontWeight: FontWeight.w800),
-                const CustomText(
-                    text: "status",
+                CustomText(
+                    text: userEntites.status!,
                     fontsize: 15,
                     fontcolor: Colors.grey,
                     fontWeight: FontWeight.w400)

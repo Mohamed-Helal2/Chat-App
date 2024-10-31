@@ -41,12 +41,7 @@ class BottmNavBar extends StatelessWidget {
                         .changeSelectedvalue(value);
                   },
                   items: const [
-                    BottomNavigationBarItem(
-                        icon: Icon(
-                          Icons.camera_alt,
-                          size: 29,
-                        ),
-                        label: "Stories"),
+                    
                     BottomNavigationBarItem(
                         icon: Icon(
                           FontAwesomeIcons.users,

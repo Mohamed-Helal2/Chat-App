@@ -31,6 +31,11 @@ import 'package:chatapp/features/mychats/data/repostories/mychats_repostories.da
 import 'package:chatapp/features/mychats/domain/repostories/mychats_repostories.dart';
 import 'package:chatapp/features/mychats/domain/usecases/get_mychats_usecase.dart';
 import 'package:chatapp/features/mychats/presentation/bloc/allmychats_cubit.dart';
+import 'package:chatapp/features/profile/data/datasouce/profile_remote_data_source.dart';
+import 'package:chatapp/features/profile/data/repostories/profile_repo_impl.dart';
+import 'package:chatapp/features/profile/domain/repostories/profile_repo.dart';
+import 'package:chatapp/features/profile/domain/usecases/profile_use_case.dart';
+import 'package:chatapp/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:chatapp/features/signup/data/datasource/signup_remote_data_source.dart';
 import 'package:chatapp/features/signup/data/repostories/signup_repostoriesimpl.dart';
 import 'package:chatapp/features/signup/domain/repostories/signup_repostories.dart';
@@ -61,7 +66,8 @@ Future<void> SetGetIt() async {
       ));
   getit.registerFactory<AllmychatsCubit>(
       () => AllmychatsCubit(getMychatsUsecase: getit()));
-
+  getit.registerFactory<ProfileCubit>(
+      () => ProfileCubit(profileUseCase: getit()));
 //  usecases
   getit.registerLazySingleton(() => LoginUsecases(loginrepostories: getit()));
   getit.registerLazySingleton(() => SignupUsecase(signUpRepostories: getit()));
@@ -82,6 +88,7 @@ Future<void> SetGetIt() async {
       () => UploadPdfUsecase(messageRepostories: getit()));
   getit.registerLazySingleton(
       () => GetMychatsUsecase(mychatsRepostories: getit()));
+  getit.registerLazySingleton(() => ProfileUseCase(profilerepo: getit()));
 //  repo
   getit.registerLazySingleton<LoginRepostories>(() =>
       LoginRepostoriesImpl(loginDataSource: getit(), networkInfo: getit()));
@@ -100,6 +107,8 @@ Future<void> SetGetIt() async {
       () => LocationRepostoriesImpl(locationDataSource: getit()));
   getit.registerLazySingleton<MychatsRepostories>(() => MychatsRepostoriesImpl(
       myChatsRemoteDataSource: getit(), networkInfo: getit()));
+  getit.registerLazySingleton<Profilerepo>(() => ProfileRepoImpl(
+      getprofileremoteDatasource: getit(), networkInfo: getit()));
 // data Source
   getit.registerLazySingleton<LoginRemoteDataSource>(
       () => LoginRemoteDataSourceImpl());
@@ -118,6 +127,8 @@ Future<void> SetGetIt() async {
   );
   getit.registerLazySingleton<MyChatsRemoteDataSource>(
       () => MyChatsRemoteDataSourceImpl());
+     getit.registerLazySingleton<ProfileRemoteDataSource>(
+      () => ProfileRemoteDataSourceImpl()); 
   // core
   getit.registerLazySingleton<NetworkInfo>(
     () => NetworkInfoImpl(internetConnectionChecker: getit()),

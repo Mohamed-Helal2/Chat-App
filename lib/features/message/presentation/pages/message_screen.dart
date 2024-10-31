@@ -1,3 +1,5 @@
+import 'package:chatapp/core/routes/routes.dart';
+import 'package:chatapp/core/utils/extenstion.dart';
 import 'package:chatapp/features/home/domain/entities/user_entites.dart';
 import 'package:chatapp/features/message/presentation/widget/MessageListnerWidget.dart';
 import 'package:chatapp/features/message/presentation/widget/buildappBar.dart';
@@ -20,8 +22,14 @@ class MessageScreen extends StatelessWidget {
             EdgeInsets.only(top: 40.h, left: 10.w, right: 10.w, bottom: 5.h),
         child: Column(
           children: [
-            AppBarWidget(
-              userEntites: userEntites,
+            InkWell(
+              onTap: () {
+                context.PushNamd(Routes.profilescreen,
+                    arguments: userEntites.id);
+              },
+              child: AppBarWidget(
+                userEntites: userEntites,
+              ),
             ),
             Divider(
               color: Colors.white,
@@ -31,7 +39,7 @@ class MessageScreen extends StatelessWidget {
             ListMessageWidget(userEntites: userEntites, focusNode: focusNode),
             TextFieldWidget(
               userEntites: userEntites,
-             
+
               //,focusNode: focusNode
             ),
             MessageListnerWidget(userEntites: userEntites),

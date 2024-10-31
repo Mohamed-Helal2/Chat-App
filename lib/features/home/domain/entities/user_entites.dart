@@ -14,6 +14,5 @@ class UserEntites extends Equatable {
       required this.id,
       required this.email});
   @override
-  // TODO: implement props
   List<Object?> get props => [name,status,photourl,id,email];
 }
