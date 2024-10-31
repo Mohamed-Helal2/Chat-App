@@ -16,6 +16,7 @@ import 'package:chatapp/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:chatapp/features/profile/presentation/pages/profie_screen.dart';
 import 'package:chatapp/features/signup/presentation/bloc/signup_cubit.dart';
 import 'package:chatapp/features/signup/presentation/pages/signup_screen.dart';
+import 'package:chatapp/features/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -96,6 +97,11 @@ class AppRouter {
                       getit<ProfileCubit>()..profiledata(userid: userid),
                   child: const ProfieScreen(),
                 ));
+// splash Screen
+case Routes.splashscreen:
+        return MaterialPageRoute(
+          builder: (context) => const SplashScreen(),
+        );
       default:
         return null;
     }
