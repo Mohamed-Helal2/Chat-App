@@ -1,5 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:chatapp/core/di/dipendency_injection.dart';
 import 'package:chatapp/features/home/presentation/pages/home_screen.dart';
+import 'package:chatapp/features/mychats/presentation/bloc/allmychats_cubit.dart';
+import 'package:chatapp/features/mychats/presentation/pages/allmychats_screen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,10 +29,11 @@ class BottomNavBarCubit extends Cubit<BottomNavBarState> {
         currentscreen = const HomeScreen();
         break;
       case 2:
-        currentscreen = currentscreen = const Scaffold(
-          body: Center(
-            child: Text("All Chats"),
-          ),
+        currentscreen = currentscreen = BlocProvider(
+          create: (context) => getit<AllmychatsCubit>()..getallMyChats(),
+          child: const Scaffold(
+            backgroundColor: const Color(0xff2D2D37) ,
+            body: AllmychatsScreen()),
         );
         break;
       case 3:

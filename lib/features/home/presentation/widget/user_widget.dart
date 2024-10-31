@@ -3,7 +3,9 @@ import 'package:chatapp/core/utils/extenstion.dart';
 import 'package:chatapp/core/widget/custom_text.dart';
 import 'package:chatapp/core/widget/photo_widget.dart';
 import 'package:chatapp/features/home/domain/entities/user_entites.dart';
+import 'package:chatapp/features/home/presentation/bloc/users_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UserWidget extends StatelessWidget {
@@ -14,7 +16,12 @@ class UserWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.PushNamd(Routes.messagescreen, arguments: userEntites);
+        context.PushNamd(Routes.messagescreen, arguments: userEntites).then(
+          (value) {
+            context.read<UsersCubit>().setUserInChatStatus(userEntites.id);
+            print("------------------------------- wwww");
+          },
+        );
       },
       child: Card(
         shadowColor: const Color.fromARGB(255, 147, 209, 247),
@@ -22,7 +29,7 @@ class UserWidget extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            photo_widget(userEntites: userEntites, size: 70),
+            photo_widget(photourl: userEntites.photourl, size: 70),
             SizedBox(
               width: 10.w,
             ),

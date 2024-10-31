@@ -2,6 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:chatapp/core/error/erro_strings.dart';
 import 'package:chatapp/core/error/failure.dart';
+import 'package:chatapp/features/home/domain/entities/user_entites.dart';
 import 'package:chatapp/features/message/data/model/mesage_model.dart';
 import 'package:chatapp/features/message/data/repostories/record_repostories.dart';
 import 'package:chatapp/features/message/domain/entities/message_entites.dart';
@@ -140,10 +141,13 @@ class MessageCubit extends Cubit<MessageState> {
     }
   }
 
+  bool? myuserinchat;
+  bool? otheruserinchat;
   sendMessage({
     required String chatid,
     required String messagetype,
     required dynamic content,
+    required UserEntites userentites,
   }) async {
     final mchatid =
         _generateChatId(chatid, FirebaseAuth.instance.currentUser!.uid);
@@ -166,14 +170,31 @@ class MessageCubit extends Cubit<MessageState> {
             timestamp: DateTime.now(),
             messageType: messagetype,
             // 'text',
-            readType: false,
+            readType: otheruserinchat!,
             replyMessage: replyMessage != null
                 ? {
                     'replycontent': replyMessage?.content,
                     'senderid': replyMessage?.senderid,
                     'messageId': replyMessage?.messageId
                   }
-                : null));
+                : null),
+        between: {
+          FirebaseAuth.instance.currentUser!.uid: {
+            'photoUrl': FirebaseAuth.instance.currentUser?.photoURL,
+            'Name': FirebaseAuth.instance.currentUser!.displayName,
+            'email': FirebaseAuth.instance.currentUser!.email,
+            'id': FirebaseAuth.instance.currentUser!.uid,
+            'isInChat': myuserinchat
+          },
+          chatid: {
+            'photoUrl': userentites.photourl,
+            'Name': userentites.name,
+            'email': userentites.email,
+            'id': chatid,
+            'status': userentites.status,
+            'isInChat': otheruserinchat
+          }
+        });
 
     response.fold(
       (l) {
@@ -190,28 +211,38 @@ class MessageCubit extends Cubit<MessageState> {
           listscrollcontroler.animateTo(0,
               duration: const Duration(seconds: 1), curve: Curves.easeInOut);
         }
+
         emit(SucessMessageState());
       },
     );
   }
 
-  void getMessages({required String chatId}) {
+  Future<void> setUserInChatStatus(String chatId, String mchatid) async {
+    final userid = FirebaseAuth.instance.currentUser!.uid;
+    await FirebaseFirestore.instance.collection('chats').doc(mchatid).update({
+      'participants.$userid.isInChat': true,
+    });
+    final chatDoc =
+        await FirebaseFirestore.instance.collection('chats').doc(mchatid).get();
+    otheruserinchat =
+        chatDoc.data()?['participants'][chatId]['isInChat'] ?? false;
+    myuserinchat = chatDoc.data()?['participants'][userid]['isInChat'] ?? false;
+
+  }
+
+  void getMessages({required String chatId}) async {
     final mchatid =
         _generateChatId(chatId, FirebaseAuth.instance.currentUser!.uid);
     emit(LoadingGetMessageState());
-    //  audioDurations.clear();
+    await setUserInChatStatus(chatId, mchatid);
     getMessageUsecase.getmessage(chatId: mchatid).listen((response) {
-      // audioDurations.clear();
-      // audioProgresses.clear();
-      // audioProgresses.add(0);
-      // audioPlayers.add(AudioPlayer());
+  
       response.fold((failure) {
         emit(FailureGetMessageState(
             errorMessage: _mapFailutrToMessage(failure)));
       }, (messages) {
-        // initializeAudioPlayers(messages.length);
         print("------------------ 333");
-
+        int unreadCount = 0;
         for (int i = 0; i < messages.length; i++) {
           final message = messages[i];
 
@@ -221,9 +252,9 @@ class MessageCubit extends Cubit<MessageState> {
           final int duration = message.messageType == 'record'
               ? message.content['audiotime']
               : 0;
-          audioDurations.add(duration);
-          //  }
+          audioDurations.add(duration);         
         }
+        print("666-------------------- $unreadCount");
         emit(SucessGetMessageState(allmessage: messages));
       });
     });
@@ -232,12 +263,15 @@ class MessageCubit extends Cubit<MessageState> {
   readType({required String chatid, required String messageid}) async {
     final mchatid =
         _generateChatId(chatid, FirebaseAuth.instance.currentUser!.uid);
-    final message = FirebaseFirestore.instance
-        .collection('chats')
-        .doc(mchatid)
-        .collection('messages')
-        .doc(messageid);
-    message.update({'readStatus': true});
+    if (chatid != FirebaseAuth.instance.currentUser!.uid) {
+      final message = FirebaseFirestore.instance
+          .collection('chats')
+          .doc(mchatid)
+          .collection('messages')
+          .doc(messageid);
+
+      await message.update({'readStatus': true});
+    }
   }
 
   void listscroll() {
@@ -299,7 +333,13 @@ class MessageCubit extends Cubit<MessageState> {
     emit(const changephotonumberstate2());
   }
 
-  sendimages({required List<String> images, required String chatid}) async {
+  sendimages({
+    required List<String> images,
+    required String chatid,
+    required UserEntites userentites,
+    // String? photourl,
+    // required String name,
+  }) async {
     emit(loadinguploadimageState());
     final response = await uploadImagesUsecase.uploadImages(images: images);
     response.fold(
@@ -307,18 +347,28 @@ class MessageCubit extends Cubit<MessageState> {
         emit(FailureuploadimageState(errorMessage: _mapFailutrToMessage(l)));
       },
       (r) {
-        sendMessage(chatid: chatid, messagetype: 'photo', content: {
-          'allphotos': r,
-          'photocaption': photocaptioncontroller.text.trim().isEmpty
-              ? null
-              : photocaptioncontroller.text
-        });
+        sendMessage(
+          chatid: chatid,
+          messagetype: 'photo',
+          content: {
+            'allphotos': r,
+            'photocaption': photocaptioncontroller.text.trim().isEmpty
+                ? null
+                : photocaptioncontroller.text
+          },
+          userentites: userentites,
+        );
         emit(SucessuploadimageState());
       },
     );
   }
 
-  sendrecord({required String chatid}) async {
+  sendrecord({
+    required String chatid,
+    required UserEntites userentites,
+    // String? photourl,
+    // required String name,
+  }) async {
     emit(const UploadrecordLoadingState());
     micColor = const Color.fromARGB(255, 152, 152, 167);
     micIconSize = 25;
@@ -335,10 +385,14 @@ class MessageCubit extends Cubit<MessageState> {
       },
       (r) {
         print("--------------- upload333");
-        sendMessage(chatid: chatid, messagetype: 'record', content: {
-          'record': r,
-          'audiotime': audiotime,
-        });
+        sendMessage(
+            chatid: chatid,
+            messagetype: 'record',
+            content: {
+              'record': r,
+              'audiotime': audiotime,
+            },
+            userentites: userentites);
         print("--------------- upload444");
         emit(const UploadrecordsUCESSState());
       },
@@ -429,7 +483,12 @@ class MessageCubit extends Cubit<MessageState> {
     audioPlayers[index].seek(newPosition);
   }
 
-  sendMyLocation({required String chatid}) async {
+  sendMyLocation({
+    required String chatid,
+    // String? photourl,
+    // required String name,
+    required UserEntites userentites,
+  }) async {
     emit(LoadingLocation());
     final response = await getMyLocationUseCase.getMyLocation();
     response.fold(
@@ -440,13 +499,19 @@ class MessageCubit extends Cubit<MessageState> {
         sendMessage(
             chatid: chatid,
             messagetype: 'Location',
-            content: {'latitude': r.latitude, 'longitude': r.longitude});
+            content: {'latitude': r.latitude, 'longitude': r.longitude},
+            userentites: userentites);
         emit(SucessLocationState());
       },
     );
   }
 
-  uploadpdf({required String chatid}) async {
+  uploadpdf({
+    required String chatid,
+    // String? photourl,
+    // required String name,
+    required UserEntites userentites,
+  }) async {
     final response = await uploadPdfUsecase.UploadPd();
     response.fold(
       (l) {
@@ -456,9 +521,8 @@ class MessageCubit extends Cubit<MessageState> {
         sendMessage(
             chatid: chatid,
             messagetype: 'Pdf',
-            content: {'pdfName': r['pdfName'], 'PdfUrl': r['PdfUrl']});
-        print("11--------------- ${r['pdfName']}");
-        print("22--------------- ${r['PdfUrl']}");
+            content: {'pdfName': r['pdfName'], 'PdfUrl': r['PdfUrl']},
+            userentites: userentites);
       },
     );
   }

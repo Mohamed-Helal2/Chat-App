@@ -31,6 +31,7 @@ class MessageScreen extends StatelessWidget {
             ListMessageWidget(userEntites: userEntites, focusNode: focusNode),
             TextFieldWidget(
               userEntites: userEntites,
+             
               //,focusNode: focusNode
             ),
             MessageListnerWidget(userEntites: userEntites),

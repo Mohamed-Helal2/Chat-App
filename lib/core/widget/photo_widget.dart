@@ -1,17 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp/core/routes/routes.dart';
 import 'package:chatapp/core/utils/extenstion.dart';
-import 'package:chatapp/features/home/domain/entities/user_entites.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class photo_widget extends StatelessWidget {
   const photo_widget({
     super.key,
-    required this.userEntites,
+      this.photourl,
     required this.size,
    });
-  final UserEntites userEntites;
+  final String? photourl;
   final double size;
    @override
   Widget build(BuildContext context) {
@@ -19,17 +18,17 @@ class photo_widget extends StatelessWidget {
         height: size.h,
         width: size.w,
         padding: const EdgeInsets.all(2),
-        child: userEntites.photourl != null
+        child:  photourl != null
             ? InkWell(
                 onTap: () {
                   context.PushNamd(Routes.fullscreenImage,
-                      arguments: userEntites.photourl);
+                      arguments:  photourl);
                 },
                 child: Hero(
-                  tag: '${userEntites.photourl}-${userEntites.id}',
+                  tag: '${ photourl}-1',
                   child: ClipOval(
                     child: CachedNetworkImage(
-                      imageUrl: userEntites.photourl!,
+                      imageUrl: photourl!,
                       placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(
                           color: Color.fromARGB(255, 243, 33, 124),

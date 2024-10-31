@@ -14,14 +14,13 @@ import 'package:intl/intl.dart';
 import 'package:swipe_to/swipe_to.dart';
 
 class MessagesWidget extends StatefulWidget {
-  const MessagesWidget({
-    super.key,
-    required this.messageEntites,
-    required this.id,
-    required this.name,
-    required this.index,
-    required this.messages
-  });
+  const MessagesWidget(
+      {super.key,
+      required this.messageEntites,
+      required this.id,
+      required this.name,
+      required this.index,
+      required this.messages});
 
   final MessageEntites messageEntites;
   final String id;
@@ -34,17 +33,10 @@ class MessagesWidget extends StatefulWidget {
 }
 
 class _MessagesWidgetState extends State<MessagesWidget> {
-  // MessageEntites? replymessage;
   @override
   void initState() {
-    //  print("---- ${widget.name}");
-    print("nnnnnnnnnn---- ${FirebaseAuth.instance.currentUser!.uid}");
-    if (widget.messageEntites.senderid !=
-        FirebaseAuth.instance.currentUser!.uid) {
-      print("---- her");
-      context.read<MessageCubit>().readType(
-          chatid: widget.id, messageid: widget.messageEntites.messageId!);
-    }
+    context.read<MessageCubit>().readType(
+        chatid: widget.id, messageid: widget.messageEntites.messageId!);
 
     super.initState();
   }
@@ -92,7 +84,7 @@ class _MessagesWidgetState extends State<MessagesWidget> {
                         if (widget.messageEntites.replyMessage != null)
                           RepliedMessageWidget(
                             widget: widget,
-                            messages:widget.messages,
+                            messages: widget.messages,
                           ),
                         Row(
                           mainAxisSize: MainAxisSize.min,

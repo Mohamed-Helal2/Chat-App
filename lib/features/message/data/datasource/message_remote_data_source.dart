@@ -8,7 +8,9 @@ import 'package:path/path.dart';
 
 abstract class MessageRemoteDataSource {
   Future<void> sendmessage(
-      {required String chatId, required MessageModel message});
+      {required String chatId,
+      required MessageModel message,
+      required Map between});
   Stream<List<MessageModel>> getMessages({required String chatId});
   Future<List<String>> uploadImages({required List<String> images});
   Future<String> UploadRecord(
@@ -19,19 +21,28 @@ abstract class MessageRemoteDataSource {
 class MessageRemoteDatSourceImpl implements MessageRemoteDataSource {
   @override
   Future<void> sendmessage(
-      {required String chatId, required MessageModel message}) async {
+      {required String chatId,
+      required MessageModel message,
+      required Map between}) async {
     DocumentReference messageRef = FirebaseFirestore.instance
         .collection('chats')
         .doc(chatId)
         .collection('messages')
         .doc(message.messageId);
     await messageRef.set(message.toFirestore());
-    await FirebaseFirestore.instance.collection('chats').doc(chatId).set({
+    await FirebaseFirestore.instance.collection('chats').doc(chatId).update({
       'lastMessage': message.content,
-      'lastMessageTimestamp': DateTime.now()
+      'lastMessageTimestamp': message.timestamp,
+      'lastMessageFrom': message.senderid,
+      'lastMessageID': message.messageId,
+      'lastMessageType': message.messageType,
+      'lastMessageRead': message.readType,
+      'participants': between,
+      'chatid': chatId
+       
     });
   }
-
+ 
   @override
   Stream<List<MessageModel>> getMessages({required String chatId}) {
     return FirebaseFirestore.instance
@@ -40,12 +51,14 @@ class MessageRemoteDatSourceImpl implements MessageRemoteDataSource {
         .collection('messages')
         .orderBy('timestamp', descending: true)
         .snapshots()
-        .map((snapshot) {
+        .asyncMap((snapshot) async {
+       
       return snapshot.docs
           .map((doc) => MessageModel.fromjson(doc.data()))
           .toList();
     });
   }
+ 
 
   @override
   Future<List<String>> uploadImages({required List<String> images}) async {
@@ -74,8 +87,7 @@ class MessageRemoteDatSourceImpl implements MessageRemoteDataSource {
 
   @override
   Future<String> uploadpdf({required String pdfpath}) async {
-    final String pdfname =
-        DateTime.now().millisecondsSinceEpoch.toString();
+    final String pdfname = DateTime.now().millisecondsSinceEpoch.toString();
 
     final storageRef =
         FirebaseStorage.instance.ref("File Between Users/$pdfname");

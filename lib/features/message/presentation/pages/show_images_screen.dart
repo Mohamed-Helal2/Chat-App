@@ -51,7 +51,10 @@ class ShowImageScreen extends StatelessWidget {
                   ListPhotoWidget(imagepathes: imagepathes),
                   const PhotoCaptionWidget(),
                   SendPhotoButtonWidget(
-                      allimages: imagepathes, chatid: userEntites.id),
+                      allimages: imagepathes, chatid: userEntites.id,
+                    userEntites: userEntites,
+                   
+                      ),
                   const PhotoListner()
                 ],
               )

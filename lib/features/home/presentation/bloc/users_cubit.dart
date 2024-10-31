@@ -3,7 +3,9 @@ import 'package:chatapp/core/error/erro_strings.dart';
 import 'package:chatapp/core/error/failure.dart';
 import 'package:chatapp/features/home/domain/entities/user_entites.dart';
 import 'package:chatapp/features/home/domain/usecases/get_all_user_usecase.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 part 'users_state.dart';
@@ -59,6 +61,22 @@ class UsersCubit extends Cubit<UsersState> {
         emit(SucessUsersState(allusers: r));
       },
     );
+  }
+
+  Future<void> setUserInChatStatus(String chatId) async {
+    final userid = FirebaseAuth.instance.currentUser!.uid;
+
+    final mchatid = _generateChatId(chatId, userid);
+    // Update the user's isInChat status in the chat participants
+    await FirebaseFirestore.instance.collection('chats').doc(mchatid).update({
+      'participants.$userid.isInChat': false, // Accessing nested field
+    });
+  }
+
+  String _generateChatId(String userId1, String userId2) {
+    List<String> ids = [userId1, userId2];
+    ids.sort();
+    return ids.join();
   }
 
   String _mapFailutrToMessage(Failure failure) {

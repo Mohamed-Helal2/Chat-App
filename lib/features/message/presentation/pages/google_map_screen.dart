@@ -12,6 +12,9 @@ class GoogleMapScreen extends StatelessWidget {
         child: Stack(
           children: [
             GoogleMap(
+              //  mapType: MapType.normal,
+              //    style:
+              // context.read<PlaceCubit>().mapstyle,
               circles: {
                 Circle(
                     circleId: const CircleId('1'),
@@ -29,7 +32,11 @@ class GoogleMapScreen extends StatelessWidget {
                     ),
                     position: latLng)
               },
+              //   polylines: context.read<PlaceCubit>().polylines,
               initialCameraPosition: CameraPosition(target: latLng, zoom: 10),
+              // onMapCreated: (controller) {
+              //   context.read<PlaceCubit>().googleMapController = controller;
+              // },
             ),
           ],
         ),

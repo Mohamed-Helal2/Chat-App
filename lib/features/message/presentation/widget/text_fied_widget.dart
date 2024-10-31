@@ -15,7 +15,6 @@ class TextFieldWidget extends StatelessWidget {
   final UserEntites userEntites;
   final bool isRTL = false;
   final String text = "";
-
   @override
   Widget build(BuildContext context) {
     final messagecubit = context.read<MessageCubit>();
@@ -45,7 +44,6 @@ class TextFieldWidget extends StatelessWidget {
                             messagecubit.showemoji();
                           }
                         },
-                        
                         hintStyle: const TextStyle(
                             color: Colors.grey,
                             fontSize: 15,
@@ -67,7 +65,11 @@ class TextFieldWidget extends StatelessWidget {
                           onPressed: () {
                             messagecubit.focusNode.unfocus();
                             displayBottomSheet(
-                                context: context, chatid: userEntites.id);
+                                context: context,
+                                chatid: userEntites.id,
+                                userentites: userEntites 
+                                
+                                );
                             //   messagecubit.showImages();
                           },
                           icon: const Icon(
@@ -96,7 +98,10 @@ class TextFieldWidget extends StatelessWidget {
               ],
             ),
           ),
-          SendMicIconWidget(chatid: userEntites.id),
+          SendMicIconWidget(
+              chatid: userEntites.id,  userEntites: userEntites,
+               
+              ),
         ],
       );
     });

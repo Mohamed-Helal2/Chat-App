@@ -29,7 +29,6 @@ class MessageModel extends MessageEntites {
         'messageId': messageId,
         'content': content,
         'timestamp': timestamp.toIso8601String(),
-        //timestamp,
         'messageType': messageType,
         'readStatus': readType,
         'replyMessage': replyMessage

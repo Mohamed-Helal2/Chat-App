@@ -11,6 +11,7 @@ import 'package:chatapp/features/message/presentation/pages/google_map_screen.da
 import 'package:chatapp/features/message/presentation/pages/message_screen.dart';
 import 'package:chatapp/features/message/presentation/pages/pdf_viewer_screen.dart';
 import 'package:chatapp/features/message/presentation/pages/show_images_screen.dart';
+import 'package:chatapp/features/mychats/presentation/pages/allmychats_screen.dart';
 import 'package:chatapp/features/signup/presentation/bloc/signup_cubit.dart';
 import 'package:chatapp/features/signup/presentation/pages/signup_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,18 +21,21 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class AppRouter {
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+// login
       case Routes.loginscreen:
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
                   create: (context) => getit<LoginCubit>(),
                   child: const LoginScreen(),
                 ));
+// signup
       case Routes.signupscreen:
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
                   create: (context) => getit<SignupCubit>(),
                   child: const SignupScreen(),
                 ));
+// bottom navBar
       case Routes.bottomNavBAr:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
@@ -39,11 +43,13 @@ class AppRouter {
             child: const BottmNavBar(),
           ),
         );
+// show image
       case Routes.fullscreenImage:
         final imageUrl = settings.arguments as String;
         return MaterialPageRoute(
           builder: (_) => FullScreenImage(imageUrl: imageUrl),
         );
+// Message
       case Routes.messagescreen:
         final userEntites = settings.arguments as UserEntites;
         return MaterialPageRoute(
@@ -53,11 +59,11 @@ class AppRouter {
                 userEntites: userEntites,
               )),
         );
+// send image
       case Routes.showImgaesScreen:
         final arguments = settings.arguments as Map<String, dynamic>;
         final imagespathes = arguments['imagespathes'] as List<String>;
         final userEntites = arguments['userEntites'] as UserEntites;
-
         return MaterialPageRoute(
             builder: (context) => BlocProvider.value(
                   value: getit<MessageCubit>(),
@@ -65,14 +71,21 @@ class AppRouter {
                   child: ShowImageScreen(
                       imagepathes: imagespathes, userEntites: userEntites),
                 ));
+// Location
       case Routes.googlemapScreen:
         final latLng = settings.arguments as LatLng;
         return MaterialPageRoute(
             builder: (context) => GoogleMapScreen(latLng: latLng));
-       case Routes.pdfViewerScreen:
+// pdf
+      case Routes.pdfViewerScreen:
         final pdfurl = settings.arguments as Map;
         return MaterialPageRoute(
-            builder: (context) => PdfViewerScreen( content: pdfurl));
+            builder: (context) => PdfViewerScreen(content: pdfurl));
+// all my chats
+      case Routes.mychats:
+        return MaterialPageRoute(
+          builder: (context) => const AllmychatsScreen(),
+        );
       default:
         return null;
     }

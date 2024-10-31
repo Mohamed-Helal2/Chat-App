@@ -11,12 +11,13 @@ class ListMessageWidget extends StatelessWidget {
     required this.focusNode,
     super.key,
   });
-  final UserEntites userEntites;
+   final UserEntites userEntites;
   final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MessageCubit, MessageState>(
+      
       buildWhen: (previous, current) =>
           current is SucessGetMessageState || current is FailureGetMessageState,
       builder: (context, state) {

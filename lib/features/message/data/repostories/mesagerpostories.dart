@@ -22,7 +22,7 @@ class MesagerpostoriesImpl implements MessageRepostories {
       required this.messageLocalDataSource});
   @override
   Future<Either<Failure, Unit>> sendMessage(
-      {required String chatid, required MessageEntites messageentities}) async {
+      {required String chatid, required MessageEntites messageentities,required Map between}) async {
     if (await networkInfo.isconnected) {
       try {
         final MessageModel messageModel = MessageModel(
@@ -35,7 +35,7 @@ class MesagerpostoriesImpl implements MessageRepostories {
             replyMessage: messageentities.replyMessage);
 
         await messageRemoteDatSource.sendmessage(
-            chatId: chatid, message: messageModel);
+            chatId: chatid, message: messageModel,between: between);
         return right(unit);
       } on FirebaseException catch (e) {
         return left(FirebaseFailure(message: e.message));

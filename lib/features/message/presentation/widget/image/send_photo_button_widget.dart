@@ -1,12 +1,19 @@
+import 'package:chatapp/features/home/domain/entities/user_entites.dart';
 import 'package:chatapp/features/message/presentation/bloc/message_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SendPhotoButtonWidget extends StatelessWidget {
   const SendPhotoButtonWidget(
-      {super.key, required this.allimages, required this.chatid});
+      {super.key,
+      required this.allimages,
+      required this.chatid,
+   
+      required this.userEntites});
   final List<String> allimages;
   final String chatid;
+  final UserEntites userEntites;
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -30,9 +37,11 @@ class SendPhotoButtonWidget extends StatelessWidget {
               return IconButton(
                   onPressed: () {
                     context.read<MessageCubit>().focusNode.unfocus();
-                    context
-                        .read<MessageCubit>()
-                        .sendimages(images: allimages, chatid: chatid);
+                    context.read<MessageCubit>().sendimages(
+                        images: allimages,
+                        chatid: chatid,
+                     userentites: userEntites
+                       );
                   },
                   icon: const Icon(
                     Icons.send,

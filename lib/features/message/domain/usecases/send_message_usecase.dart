@@ -7,8 +7,10 @@ class SendMessageUsecase {
   final MessageRepostories messageRepostories;
 
   SendMessageUsecase({required this.messageRepostories});
-  Future<Either<Failure, Unit>> sendMessage({required  String chatid,required MessageEntites messageentities}) async {
-    return await messageRepostories.sendMessage(chatid: chatid,messageentities: messageentities);
+  Future<Either<Failure, Unit>> sendMessage({required  String chatid,
+  required MessageEntites messageentities,required Map between}) async {
+    return await messageRepostories.sendMessage(chatid: chatid,
+    messageentities: messageentities,between: between);
   }
   
 }

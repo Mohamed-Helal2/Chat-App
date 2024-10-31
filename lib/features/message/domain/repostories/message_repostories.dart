@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 
 abstract class MessageRepostories {
   Future<Either<Failure, Unit>> sendMessage(
-      {required String chatid, required MessageEntites messageentities});
+      {required String chatid, required MessageEntites messageentities,required Map between});
   Stream<Either<Failure, List<MessageEntites>>> getMessages(
       {required String chatId});
   Future<Either<Failure, List<String>>> uploadImages(

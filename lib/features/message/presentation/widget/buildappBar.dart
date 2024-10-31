@@ -30,7 +30,7 @@ class AppBarWidget extends StatelessWidget {
           ),
         ),
         SizedBox(width: 15.w),
-        photo_widget(userEntites: userEntites, size: 50),
+        photo_widget(photourl: userEntites.photourl, size: 50),
         SizedBox(
           width: 5.w,
         ),
@@ -42,11 +42,6 @@ class AppBarWidget extends StatelessWidget {
                 fontsize: 20,
                 fontcolor: Colors.white,
                 fontWeight: FontWeight.w500),
-            CustomText(
-                text: 'last seen',
-                fontsize: 15,
-                fontcolor: Colors.white.withOpacity(0.5),
-                fontWeight: FontWeight.w100),
           ],
         ),
       ],

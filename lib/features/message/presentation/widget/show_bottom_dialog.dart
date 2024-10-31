@@ -1,3 +1,4 @@
+import 'package:chatapp/features/home/domain/entities/user_entites.dart';
 import 'package:chatapp/features/message/data/model/grid_view_model.dart';
 import 'package:chatapp/features/message/presentation/bloc/message_cubit.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future displayBottomSheet(
-    {required BuildContext context, required String chatid}) {
+    {required BuildContext context,
+    required String chatid,
+    required UserEntites userentites
+     }) {
   return showModalBottomSheet(
     backgroundColor: Colors.transparent,
     context: context,
@@ -43,12 +47,18 @@ Future displayBottomSheet(
                         Navigator.pop(context);
                         break;
                       case 'pdf':
-                        await messagecubit.uploadpdf(chatid: chatid);
+                        await messagecubit.uploadpdf(
+                            chatid: chatid, userentites: userentites
+                          
+                            );
                         Navigator.pop(context);
                         break;
                       case 'Location':
-                        await messagecubit.sendMyLocation(chatid: chatid);
-                        print("LLL ---   Action 2 for item ${item.name}");
+                        await messagecubit.sendMyLocation(
+                            chatid: chatid,  userentites: userentites
+                         
+                            );
+                        Navigator.pop(context);
                         break;
                       default:
                         print("---   Default action for item ${item.name}");
