@@ -36,14 +36,8 @@ class RepliedMessageWidget extends StatelessWidget {
       replyContent = 'Unsupported content';
     }
 
-    print(
-        "11 ------------- ${widget.messageEntites.replyMessage!['replycontent'].runtimeType}");
-    // print(
-    //     "22 ------------- ${widget.messageEntites.replyMessage!['replycontent']!.containsKey('record')}");
     return InkWell(
       onTap: () {
-       // print("----------- EEEE");
-        //  context.read<MessageCubit>().getMessageIndexById(messages: messages, messageId: messageId)
         context.read<MessageCubit>().changecolor(
           messageId: widget.messageEntites.replyMessage!['messageId'],
           messages: messages

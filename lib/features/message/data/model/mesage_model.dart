@@ -8,7 +8,7 @@ class MessageModel extends MessageEntites {
       required super.content,
       required super.timestamp,
       required super.messageType,
-      required super.readType,
+       required super.readType,
       super.replyMessage});
 
   factory MessageModel.fromjson(Map<String, dynamic> json) {
@@ -21,7 +21,7 @@ class MessageModel extends MessageEntites {
             : DateTime.parse(json['timestamp']),
         //DateTime.parse(json['timestamp']),
         messageType: json['messageType'],
-        readType: json['readStatus'],
+        readType: json['readStatus']??false,
         replyMessage: json['replyMessage']);
   }
   Map<String, dynamic> toFirestore() => {

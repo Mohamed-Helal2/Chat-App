@@ -15,17 +15,13 @@ class RecordTimeWidget extends StatelessWidget {
           state.duration;
         }
         if (state is startrecordstate) {
-          print("listner  --------- start record state ");
         }
         if (state is RecordingStoppedState) {
-          print("listner  --------- stop state ");
         }
         if (state is ChangemicIconSizeState2) {}
         if (state is InitialrecordState) {
-          print("listner  --------- init ");
         }
         if (state is RecordingInProgressstate) {
-          print("listner ----   ${state.duration}");
         }
       },
       builder: (context, state) {

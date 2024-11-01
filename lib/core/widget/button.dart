@@ -18,7 +18,6 @@ class Button extends StatelessWidget {
             Color.fromARGB(255, 85, 2, 7),
             Color.fromARGB(255, 160, 143, 144),
           ]),
-          // color: const Color.fromARGB(255, 85, 2, 7),
           borderRadius: BorderRadius.circular(20)),
       margin: const EdgeInsets.all(10),
       width: double.infinity,

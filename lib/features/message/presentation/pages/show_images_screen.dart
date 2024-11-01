@@ -28,7 +28,6 @@ class ShowImageScreen extends StatelessWidget {
               Positioned.fill(
                   child: PhotoViewGallery.builder(
                 onPageChanged: (index) {
-                  print("===================>> ${index}");
                   context.read<MessageCubit>().changephotonumer(index: index);
                   context.read<MessageCubit>().changephotonumer2(index2: index);
                 },

@@ -18,12 +18,7 @@ class ChatImagesWidget extends StatelessWidget {
           children: [
             ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: CachedNetworkImage(imageUrl: photoes['allphotos'][0])
-                //  Image.network(
-                //   photoes['allphotos'][0],
-                //   fit: BoxFit.cover,
-                // ),
-                ),
+                child: CachedNetworkImage(imageUrl: photoes['allphotos'][0])),
             SizedBox(height: 5.h),
             if (photoes['photocaption'] != null)
               Text(

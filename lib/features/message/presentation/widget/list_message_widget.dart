@@ -22,7 +22,6 @@ class ListMessageWidget extends StatelessWidget {
           current is SucessGetMessageState || current is FailureGetMessageState,
       builder: (context, state) {
         if (state is SucessGetMessageState) {
-          print("---------------00");
           return Expanded(
               child: ListView.separated(
             padding: const EdgeInsets.symmetric(vertical: 10),
@@ -33,8 +32,6 @@ class ListMessageWidget extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      print(
-                          "11 ----- ${context.read<MessageCubit>().getMessageIndexById(messages: state.allmessage, messageId: state.allmessage[index].messageId!)}");
                     },
                     child: MessagesWidget(
                       messageEntites: state.allmessage[index],

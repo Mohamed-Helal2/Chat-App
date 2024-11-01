@@ -65,8 +65,7 @@ class MessageCubit extends Cubit<MessageState> {
   Color containercolor = Colors.transparent;
   int? repliedindex;
   test(int index) {
-    print("ss----------  $index");
-  }
+   }
 
   int getMessageIndexById({required List messages, required String messageId}) {
     return messages.indexWhere((message) => message.messageId == messageId);
@@ -77,33 +76,24 @@ class MessageCubit extends Cubit<MessageState> {
     selectedIndex =
         getMessageIndexById(messageId: messageId, messages: messages);
     await scrollToIndex(selectedIndex!);
-    //  indexcolor = 3;
-    //  selectedIndex = index;
     containercolor = Colors.blue;
-    print("-------------- ff");
-    emit(containercolorstate());
+     emit(containercolorstate());
     Future.delayed(const Duration(milliseconds: 1500), () {
-      print("------------- gooo");
-      selectedIndex = null;
+       selectedIndex = null;
       containercolor = Colors.transparent;
       emit(containercolorstate2());
     });
   }
 
   Future scrollToIndex(int index) async {
-    print("--------- enter");
-    // double targetScrollPosition = index *
-    //     ScreenUtil().screenHeight *
-    //     0.5; // Assuming 10% of screen height for each message
-
+ 
     double targetScrollPosition = index * 70;
     listscrollcontroler.animateTo(
       targetScrollPosition.h,
       duration: const Duration(milliseconds: 700),
       curve: Curves.easeInOut,
     );
-    print("----- dnn");
-  }
+   }
 
   Future<void> startRecording() async {
     micColor = Colors.green;
@@ -170,7 +160,7 @@ class MessageCubit extends Cubit<MessageState> {
             timestamp: DateTime.now(),
             messageType: messagetype,
             // 'text',
-            readType: otheruserinchat!,
+            readType: otheruserinchat ?? false,
             replyMessage: replyMessage != null
                 ? {
                     'replycontent': replyMessage?.content,
@@ -192,7 +182,7 @@ class MessageCubit extends Cubit<MessageState> {
             'email': userentites.email,
             'id': chatid,
             'status': userentites.status,
-            'isInChat': otheruserinchat
+            'isInChat': otheruserinchat ?? false
           }
         });
 
@@ -227,7 +217,6 @@ class MessageCubit extends Cubit<MessageState> {
     otheruserinchat =
         chatDoc.data()?['participants'][chatId]['isInChat'] ?? false;
     myuserinchat = chatDoc.data()?['participants'][userid]['isInChat'] ?? false;
-
   }
 
   void getMessages({required String chatId}) async {
@@ -236,13 +225,10 @@ class MessageCubit extends Cubit<MessageState> {
     emit(LoadingGetMessageState());
     await setUserInChatStatus(chatId, mchatid);
     getMessageUsecase.getmessage(chatId: mchatid).listen((response) {
-  
       response.fold((failure) {
         emit(FailureGetMessageState(
             errorMessage: _mapFailutrToMessage(failure)));
       }, (messages) {
-        print("------------------ 333");
-        int unreadCount = 0;
         for (int i = 0; i < messages.length; i++) {
           final message = messages[i];
 
@@ -252,10 +238,9 @@ class MessageCubit extends Cubit<MessageState> {
           final int duration = message.messageType == 'record'
               ? message.content['audiotime']
               : 0;
-          audioDurations.add(duration);         
+          audioDurations.add(duration);
         }
-        print("666-------------------- $unreadCount");
-        emit(SucessGetMessageState(allmessage: messages));
+         emit(SucessGetMessageState(allmessage: messages));
       });
     });
   }
@@ -366,26 +351,20 @@ class MessageCubit extends Cubit<MessageState> {
   sendrecord({
     required String chatid,
     required UserEntites userentites,
-    // String? photourl,
-    // required String name,
   }) async {
     emit(const UploadrecordLoadingState());
     micColor = const Color.fromARGB(255, 152, 152, 167);
     micIconSize = 25;
     isrecord = false;
     String audiopath = await recordRepository.stopRecording();
-    print("--------------- upload11");
-    final response = await uploadAudioUsecase.uploadAudio(
+     final response = await uploadAudioUsecase.uploadAudio(
         audiopath: audiopath, audioname: recordername!);
-    print("--------------- upload222");
-    response.fold(
+     response.fold(
       (l) {
-        print("---------------- ff");
-        emit(FailureuploadimageState(errorMessage: _mapFailutrToMessage(l)));
+         emit(FailureuploadimageState(errorMessage: _mapFailutrToMessage(l)));
       },
       (r) {
-        print("--------------- upload333");
-        sendMessage(
+         sendMessage(
             chatid: chatid,
             messagetype: 'record',
             content: {
@@ -393,20 +372,11 @@ class MessageCubit extends Cubit<MessageState> {
               'audiotime': audiotime,
             },
             userentites: userentites);
-        print("--------------- upload444");
-        emit(const UploadrecordsUCESSState());
+         emit(const UploadrecordsUCESSState());
       },
     );
   }
-
-  // int? audioDuration;
-  // int audioProgress = 0;
   Future<void> playAudio({required String audioUrl, required int index}) async {
-    // for (int i = 0; i < audioPlayers.length; i++) {
-    //   if (i != index) {
-    //     await audioPlayers[i].stop();
-    //   }
-    // }
     await audioPlayers[index].play(UrlSource(audioUrl));
     audioPlayers[index].onDurationChanged.listen((Duration duration) {
       audioDurations[index] = duration.inMilliseconds;
@@ -426,41 +396,27 @@ class MessageCubit extends Cubit<MessageState> {
 
   int? playindex;
   Future<void> longPlay({required String audioUrl, required int index}) async {
-    // if (playindex != null) {
-    //   print("--------------------- playindex");
-    //   audioPlayers[playindex!].pause();
-    //   playbackStates[playindex!] = PlayerState.paused;
-    //   // emit(PlayerStateUpdate(playbackState: playbackStates[playindex!]));
-    // }
     if (playindex != null && playindex != index) {
       await audioPlayers[playindex!].pause();
       playbackStates[playindex!] = PlayerState.paused;
     }
-    // Manage playback state for the selected index
-    switch (playbackStates[index]) {
+     switch (playbackStates[index]) {
       case PlayerState.paused:
       case PlayerState.stopped:
-        print("------------- enter ");
-        await playAudio(index: index, audioUrl: audioUrl);
+         await playAudio(index: index, audioUrl: audioUrl);
         playbackStates[index] = PlayerState.playing;
         playindex = index;
-        print("---------------- play$index");
-        emit(PlayerStateUpdate(playbackState: playbackStates[index]));
+         emit(PlayerStateUpdate(playbackState: playbackStates[index]));
         break;
 
       case PlayerState.playing:
-        // await _stopAudio(index: index);
-        //  print("------------- close ");
         await audioPlayers[index].pause();
         playbackStates[index] = PlayerState.paused;
-        //  playbackStates[index] = PlayerState.stopped;
         playindex = null;
-        print("---------------- stop$index");
         emit(PlayerStateUpdate(playbackState: playbackStates[index]));
         break;
 
       case PlayerState.completed:
-        print("---------------- completed");
         await playAudio(index: index, audioUrl: audioUrl);
         playindex = index;
         playbackStates[index] = PlayerState.playing;
@@ -508,14 +464,11 @@ class MessageCubit extends Cubit<MessageState> {
 
   uploadpdf({
     required String chatid,
-    // String? photourl,
-    // required String name,
     required UserEntites userentites,
   }) async {
     final response = await uploadPdfUsecase.UploadPd();
     response.fold(
       (l) {
-        print('---------------- $l');
       },
       (r) {
         sendMessage(

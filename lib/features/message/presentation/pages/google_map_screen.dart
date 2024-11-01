@@ -1,4 +1,6 @@
+import 'package:chatapp/core/utils/extenstion.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class GoogleMapScreen extends StatelessWidget {
@@ -12,9 +14,6 @@ class GoogleMapScreen extends StatelessWidget {
         child: Stack(
           children: [
             GoogleMap(
-              //  mapType: MapType.normal,
-              //    style:
-              // context.read<PlaceCubit>().mapstyle,
               circles: {
                 Circle(
                     circleId: const CircleId('1'),
@@ -37,6 +36,28 @@ class GoogleMapScreen extends StatelessWidget {
               // onMapCreated: (controller) {
               //   context.read<PlaceCubit>().googleMapController = controller;
               // },
+            ),
+            Positioned(
+              left: 10.w,
+              top: 20.w,
+              child: InkWell(
+                onTap: () {
+                  context.pop();
+                },
+                child: Container(
+                  height: 40.h,
+                  width: 40.w,
+                  margin: const EdgeInsets.only(left: 10),
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ),
           ],
         ),

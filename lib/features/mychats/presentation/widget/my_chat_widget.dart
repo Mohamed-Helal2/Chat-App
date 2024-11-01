@@ -67,7 +67,6 @@ class MyChatWidget extends StatelessWidget {
           const Icon(Icons.picture_as_pdf, size: 30, color: Colors.red)
         ],
       );
-      print("xx ------------------ $lastmessage");
     } else {
       lastmessage = const Text('Unsupported content');
     }

@@ -27,7 +27,6 @@ class CustomText extends StatelessWidget {
             fontSize: fontsize.sp,
             color: fontcolor,
             fontWeight: fontWeight,
-            // overflow: TextOverflow.ellipsis,
             fontFamily: fontfamily ?? "PTSerif"));
   }
 }

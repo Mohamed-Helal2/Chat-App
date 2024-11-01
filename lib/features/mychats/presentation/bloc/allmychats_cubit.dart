@@ -16,42 +16,32 @@ class AllmychatsCubit extends Cubit<AllmychatsState> {
   final GetMychatsUsecase getMychatsUsecase;
 
   void getallMyChats() {
-    print("1 ---------------- enter");
 
     final userid = FirebaseAuth.instance.currentUser!.uid;
-    print("22 ---------------- $userid");
     emit(AllmychatsLoading());
 
     getMychatsUsecase.getmychats(userid: userid).listen(
       (response) {
-        print("sss ---- response");
         emit(streamState());
         response.fold(
           (l) {
-            print("33 ---------------- $userid");
 
             emit(AllmychatsFailure(error_message: _mapFailutrToMessage(l)));
           },
           (r) {
-            //    emit(AllmychatsLoading());
-            print("44 ---------------- $r");
 
             emit(AllmychatsSucess(allmychats: r));
           },
         );
-        //  emit(AllmychatsLoading());
       },
     );
-    print("------------------------- eeend");
-    // emit(streamState());
   }
    Future<void> setUserInChatStatus(String chatId) async {
     final userid = FirebaseAuth.instance.currentUser!.uid;
 
     final mchatid = _generateChatId(chatId, userid);
-    // Update the user's isInChat status in the chat participants
     await FirebaseFirestore.instance.collection('chats').doc(mchatid).update({
-      'participants.$userid.isInChat': false, // Accessing nested field
+      'participants.$userid.isInChat': false,
     });
   }
 

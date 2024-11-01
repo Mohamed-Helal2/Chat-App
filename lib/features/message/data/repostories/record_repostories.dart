@@ -28,8 +28,7 @@ class RecordRepository {
   Future<String> stopRecording() async {
     String? audiopath = await _recorder.stopRecorder();
     await _recorder.closeRecorder();
-    print("zz----------- $audiopath");
-    return audiopath!;
+     return audiopath!;
   }
 
   // Subscribe to the recorder's onProgress stream

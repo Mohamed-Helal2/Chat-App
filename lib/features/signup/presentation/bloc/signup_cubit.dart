@@ -53,7 +53,6 @@ class SignupCubit extends Cubit<SignupState> {
           emit(FailureSignupState(errorMessage: _mapFailutrToMessage(l)));
         },
         (r) async {
-          print("---->> $r");
           emit(SucessSignupState());
         },
       );

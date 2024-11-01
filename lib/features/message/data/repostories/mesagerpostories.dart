@@ -50,8 +50,7 @@ class MesagerpostoriesImpl implements MessageRepostories {
       {required String chatId}) async* {
     if (await networkInfo.isconnected) {
       try {
-        print("------------------ 44");
-        yield* messageRemoteDatSource
+         yield* messageRemoteDatSource
             .getMessages(chatId: chatId)
             .map((messages) {
           List<MessageEntites> allmessage = messages
@@ -64,8 +63,7 @@ class MesagerpostoriesImpl implements MessageRepostories {
                   readType: msg.readType,
                   replyMessage: msg.replyMessage))
               .toList();
-          print("------------------------- 99");
-          messageLocalDataSource.cachedMessages(
+           messageLocalDataSource.cachedMessages(
               allmessages: messages, chatid: chatId);
           return right(allmessage);
         });
@@ -74,13 +72,11 @@ class MesagerpostoriesImpl implements MessageRepostories {
       }
     } else {
       try {
-        print("get 222-----------------$chatId");
-        final localMessage =
+         final localMessage =
             await messageLocalDataSource.getcachedMessage(chatid: chatId);
         yield right(localMessage);
       } on EmptyMessageException {
-        print("----------------- emoooooooooo ");
-        yield left(EmptyMessageFailure());
+         yield left(EmptyMessageFailure());
       }
     }
   }

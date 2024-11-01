@@ -8,10 +8,8 @@ abstract class MyChatsRemoteDataSource {
 class MyChatsRemoteDataSourceImpl implements MyChatsRemoteDataSource {
   @override
   Stream<List<MyChatsModel>> getallMychats({required String myid}) {
-    print("77 -------------- $myid");
     return FirebaseFirestore.instance
         .collection('chats')
-        // .where('participants', isEqualTo: {myid: true})
         .orderBy('lastMessageTimestamp', descending: true)
         .snapshots()
         .map((snapshot) {
@@ -19,11 +17,7 @@ class MyChatsRemoteDataSourceImpl implements MyChatsRemoteDataSource {
           .where((doc) => (doc.data()['participants'] as Map<String, dynamic>)
               .containsKey(myid))
           .map((doc) {
-        print("Chat data: ${doc.data()}");
         return MyChatsModel.fromJson(doc.data());
-        // return snapshot.docs.map((doc) {
-        //   print("dd ------------------ ${doc.data()}");
-        //   return MyChatsModel.fromJson(doc.data());
       }).toList();
     });
   }

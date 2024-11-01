@@ -33,31 +33,26 @@ class UsersCubit extends Cubit<UsersState> {
 
   filteruser({required String value}) {
     if (searchcontroller.text.isNotEmpty) {
-      print("-----11");
-      filteredUsers = allusers
+       filteredUsers = allusers
           .where(
               (user) => user.name.toLowerCase().contains(value.toLowerCase()))
           .toList();
       emit(SucessUsersState(allusers: filteredUsers));
     } else {
-      print("-----2");
-      emit(SucessUsersState(allusers: allusers));
+       emit(SucessUsersState(allusers: allusers));
     }
   }
 
   refreshuser() async {
-    print('------ refresh');
-    emit(LoadingUsersState());
+     emit(LoadingUsersState());
     final response = await getAllUserUsecase.getAllUaer();
     response.fold(
       (l) {
-        print("---------- fail");
-
+ 
         emit(FailureUsersStet(errorMessage: _mapFailutrToMessage(l)));
       },
       (r) {
-        print("---------- $r");
-
+ 
         emit(SucessUsersState(allusers: r));
       },
     );
@@ -67,9 +62,8 @@ class UsersCubit extends Cubit<UsersState> {
     final userid = FirebaseAuth.instance.currentUser!.uid;
 
     final mchatid = _generateChatId(chatId, userid);
-    // Update the user's isInChat status in the chat participants
     await FirebaseFirestore.instance.collection('chats').doc(mchatid).update({
-      'participants.$userid.isInChat': false, // Accessing nested field
+      'participants.$userid.isInChat': false, 
     });
   }
 

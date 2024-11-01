@@ -19,8 +19,7 @@ class UserWidget extends StatelessWidget {
         context.PushNamd(Routes.messagescreen, arguments: userEntites).then(
           (value) {
             context.read<UsersCubit>().setUserInChatStatus(userEntites.id);
-            print("------------------------------- wwww");
-          },
+           },
         );
       },
       child: Card(
@@ -41,11 +40,13 @@ class UserWidget extends StatelessWidget {
                     fontsize: 20,
                     fontcolor: Colors.black,
                     fontWeight: FontWeight.w800),
-                CustomText(
-                    text: userEntites.status!,
-                    fontsize: 15,
-                    fontcolor: Colors.grey,
-                    fontWeight: FontWeight.w400)
+                userEntites.status != null
+                    ? CustomText(
+                        text: userEntites.status!,
+                        fontsize: 15,
+                        fontcolor: Colors.grey,
+                        fontWeight: FontWeight.w400)
+                    : SizedBox.shrink()
               ],
             ),
           ],

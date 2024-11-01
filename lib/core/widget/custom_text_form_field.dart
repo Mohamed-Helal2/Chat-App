@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:mydoctor/core/theming/colors.dart';
-// import 'package:mydoctor/core/theming/styling.dart';
 
 class customTextFormField extends StatefulWidget {
   final EdgeInsetsGeometry? contentPadding;
@@ -45,10 +43,8 @@ class customTextFormField extends StatefulWidget {
 
 class _customTextFormFieldState extends State<customTextFormField> {
   TextDirection _textDirection = TextDirection.ltr;
-  // Default LTR
   void _checkTextDirection(String text) {
     if (text.isNotEmpty) {
-      // Check if the first character is RTL
       if (_isRTLCharacter(text[0])) {
         setState(() {
           _textDirection = TextDirection.rtl;
@@ -63,16 +59,14 @@ class _customTextFormFieldState extends State<customTextFormField> {
 
   bool _isRTLCharacter(String character) {
     final int charCode = character.codeUnitAt(0);
-    return (charCode >= 0x600 && charCode <= 0x6FF) || // Arabic
-        (charCode >= 0x0590 && charCode <= 0x05FF); // Hebrew
+    return (charCode >= 0x600 && charCode <= 0x6FF) || 
+        (charCode >= 0x0590 && charCode <= 0x05FF); 
   }
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      // validator: (value) {
-      //   return widget.validator!(value);
-      // },
+
     focusNode:widget.focusNode ,
       textDirection: _textDirection,
       controller: widget.controller,

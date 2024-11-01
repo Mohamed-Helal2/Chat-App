@@ -162,7 +162,6 @@ class _MessagesWidgetState extends State<MessagesWidget> {
             context
                 .read<MessageCubit>()
                 .replyToMessage(widget.messageEntites, widget.index);
-            print("ww--------------- ${widget.index}");
           },
         );
       },

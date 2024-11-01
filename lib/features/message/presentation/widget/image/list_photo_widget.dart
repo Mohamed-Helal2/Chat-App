@@ -18,13 +18,11 @@ class ListPhotoWidget extends StatelessWidget {
     return BlocConsumer<MessageCubit, MessageState>(
       listener: (context, state) {
         if (state is removeImagestate) {
-          print('--------------------- sss');
           state.pickedImagesPathes;
         }
       },
       builder: (context, state) {
         return Container(
-          // color: Colors.deepOrangeAccent,
            height: 50.h,
           width: MediaQuery.of(context).size.width * 0.8,
           child: Center(
@@ -36,17 +34,14 @@ class ListPhotoWidget extends StatelessWidget {
                   onTap: () {
                     context
                                 .read<MessageCubit>()
-                                //.changephotonumer(index: index);
                                 .photonumber ==
                             index
                         ? context
                             .read<MessageCubit>()
                             .removephoto(index: index, allimages: imagepathes)
-                        //imagepathes.removeAt(index)
                         : context
                             .read<MessageCubit>()
                             .changephotonumer(index: index);
-                    print("----- ${context.read<MessageCubit>().photonumber}");
                   },
                   child: Container(
                       margin: const EdgeInsets.only(right: 5),

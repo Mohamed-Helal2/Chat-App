@@ -30,12 +30,8 @@ class SendMicIconWidget extends StatelessWidget {
                         micCubit.startRecording();
                       },
                       onLongPressEnd: (details) {
-                        print("---------------- s");
-                        micCubit
-                            .
-                            //.stopRecording();
-                            sendrecord(
-                                chatid: chatid,  userentites: userEntites);
+                        micCubit.sendrecord(
+                            chatid: chatid, userentites: userEntites);
                       },
                       child:
                           const Icon(Icons.mic, color: Colors.white, size: 30))
@@ -45,7 +41,6 @@ class SendMicIconWidget extends StatelessWidget {
                             chatid: chatid,
                             content: micCubit.messagecontroller.text.trim(),
                             messagetype: 'text',
-                           
                             userentites: userEntites);
                       },
                       icon: const Icon(Icons.send,

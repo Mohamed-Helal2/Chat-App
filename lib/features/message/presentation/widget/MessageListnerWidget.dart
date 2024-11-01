@@ -19,10 +19,6 @@ class MessageListnerWidget extends StatelessWidget {
               'userEntites': userEntites,
             });
           }
-          // if (state is RecordingInProgressstate) {
-          //   print("------------------- xx");
-          //   state.duration;
-          // }
         },
         child: const SizedBox.shrink());
   }

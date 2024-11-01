@@ -15,13 +15,12 @@ part 'bottom_nav_bar_state.dart';
 class BottomNavBarCubit extends Cubit<BottomNavBarState> {
   BottomNavBarCubit() : super(BottomNavBarInitial());
 
-  int navigatorValue = 1;
+  int navigatorValue = 0;
   Widget currentscreen = const HomeScreen();
 
   void changeSelectedvalue(int selected_value) {
     navigatorValue = selected_value;
     switch (selected_value) {
-      
       case 0:
         currentscreen = const HomeScreen();
         break;

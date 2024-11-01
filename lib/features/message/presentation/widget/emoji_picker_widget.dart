@@ -12,7 +12,6 @@ class EmojiPickerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return EmojiPicker(
       onEmojiSelected: (category, emoji) {
-        print("--- ${emoji.emoji}");
         context.read<MessageCubit>().changeIcon();
       },
       

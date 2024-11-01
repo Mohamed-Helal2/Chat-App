@@ -40,7 +40,6 @@ Future displayBottomSheet(
                     switch (item.actionType) {
                       case 'camera':
                         messagecubit.test(index);
-                        print("cc  -----   Action 1 for item ${item.name}");
                         break;
                       case 'Gallery':
                         await messagecubit.showImages();
@@ -61,9 +60,7 @@ Future displayBottomSheet(
                         Navigator.pop(context);
                         break;
                       default:
-                        print("---   Default action for item ${item.name}");
                     }
-                    // Navigator.pop(context);
                   },
                   child: Column(
                     children: [

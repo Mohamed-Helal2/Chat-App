@@ -49,8 +49,6 @@ final class replyMessagewState extends MessageState {
   final MessageEntites? replymessage;
 
   const replyMessagewState({required this.replymessage});
-  // @override
-  // List<Object> get props => [replymessage!];
 }
 
 final class cancelreplyMessagewState extends MessageState {}
@@ -128,8 +126,7 @@ class RecordingDurationUpdated extends MessageState {
   const RecordingDurationUpdated(this.duration);
 }
 
-///
-///
+
 
 final class UploadrecordLoadingState extends MessageState {
   const UploadrecordLoadingState();

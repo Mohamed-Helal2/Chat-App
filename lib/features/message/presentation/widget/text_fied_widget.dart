@@ -21,7 +21,6 @@ class TextFieldWidget extends StatelessWidget {
 
     return BlocConsumer<MessageCubit, MessageState>(listener: (context, state) {
       if (state is RecordingInProgressstate) {
-        print("---- text");
         state.duration;
       }
     }, builder: (context, state) {
@@ -67,13 +66,11 @@ class TextFieldWidget extends StatelessWidget {
                             displayBottomSheet(
                                 context: context,
                                 chatid: userEntites.id,
-                                userentites: userEntites 
-                                
-                                );
+                                userentites: userEntites);
                             //   messagecubit.showImages();
                           },
                           icon: const Icon(
-                            Icons.camera_alt_outlined,
+                            Icons.add,
                             color: Colors.white,
                             size: 30,
                           ),
@@ -99,9 +96,9 @@ class TextFieldWidget extends StatelessWidget {
             ),
           ),
           SendMicIconWidget(
-              chatid: userEntites.id,  userEntites: userEntites,
-               
-              ),
+            chatid: userEntites.id,
+            userEntites: userEntites,
+          ),
         ],
       );
     });

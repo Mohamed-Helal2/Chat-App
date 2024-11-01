@@ -52,20 +52,15 @@ class ChatRecordWidget extends StatelessWidget {
                   child: Slider.adaptive(
                     value: (messageCubit.audioProgresses[index]! / 1000)
                         .floorToDouble(),
-                    //(audioProgress / 1000).floorToDouble(),
                     min: 0,
                     max: (messageCubit.audioDurations[index]! / 1000)
                         .floorToDouble(),
-                    //maxDuration.floorToDouble(),
                     onChanged: (value) {
-                      print("Slider changed: $value");
                       messageCubit.seekTo(value.toInt(), index);
-                      //seekto(value.toInt());
                     },
                   ),
                 ),
 
-                //  Text(gettimestring(audiocontent['audiotime']))
               ],
             ),
             Row(
