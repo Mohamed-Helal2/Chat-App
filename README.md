@@ -70,15 +70,3 @@ This project is a fully-featured chat application built with Flutter, designed f
 
 - Custom font: PTSerif (for a unique app aesthetic).
 
-## Getting Started
-
-If this is your first Flutter project, refer to these resources to get started:
-
-- [Flutter: Write Your First App](https://docs.flutter.dev/get-started/codelab)
-- [Flutter Cookbook: Useful Samples](https://docs.flutter.dev/cookbook)
-
-For Flutter documentation, check out [Flutter Documentation](https://docs.flutter.dev/), which includes tutorials, samples, and a full API reference.
-
----
-
-Excited to launch this app and bring seamless communication to everyone!
