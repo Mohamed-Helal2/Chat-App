@@ -2,6 +2,13 @@
 
 A Flutter-based real-time chat application using Firebase and Google Maps API, built with clean architecture.
 
+
+Watch a video demo of the app on YouTube: [https://youtu.be/WvDP89PEpMs](https://youtu.be/WvDP89PEpMs)
+
+[![Watch the video](https://img.youtube.com/vi/WvDP89PEpMs/0.jpg)](https://youtu.be/WvDP89PEpMs)
+
+
+
 ## Project Overview
 
 This project is a fully-featured chat application built with Flutter, designed for seamless communication, media sharing, and location-based interactions. The app features a responsive UI and real-time updates, with support for both online and offline usage.
@@ -69,4 +76,3 @@ This project is a fully-featured chat application built with Flutter, designed f
 ### Fonts
 
 - Custom font: PTSerif (for a unique app aesthetic).
-
